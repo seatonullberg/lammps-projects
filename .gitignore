@@ -1,0 +1,8 @@
+# python generated files
+**/__pycache__
+
+# output directories for data
+**/out*
+
+# generated figures
+**/*.png
