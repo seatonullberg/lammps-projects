@@ -12,7 +12,7 @@ import numpy as np
 from pymatgen.io.lammps.data import LammpsData
 from pymatgen.io.lammps.inputs import write_lammps_inputs
 
-from .configuration import CONFIGURATION
+from configuration import CONFIGURATION
 
 # define the LAMMPS input script template for the primary relaxation procedure
 primary_relax_template = """clear
