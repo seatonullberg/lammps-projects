@@ -50,12 +50,18 @@ if __name__ == "__main__":
     for key in data:
         fig, ax = plt.subplots()
         peaks = [max(e) for e in data[key]["energy"]]
-        density = stats.gaussian_kde(peaks)
         xs = np.linspace(min(peaks), max(peaks), 100)
-        ax.plot(xs, density(xs))
+        
+        density = stats.gaussian_kde(peaks)
+        mu, sigma = stats.norm.fit(peaks)
+        pdf = stats.norm.pdf(xs, mu, sigma)
+        
         ax.hist(peaks, density=True, bins=50)
-        ax.set_title(key)
+        ax.plot(xs, density(xs), linewidth=2, label="KDE")
+        ax.plot(xs, pdf, linewidth=2, label="Normal")
+        ax.set_title("{} mu={}, sigma={}".format(key, round(mu, 2), round(sigma, 2)))
         ax.set_xlabel("Barrier Height (eV)")
         ax.set_ylabel("Counts")
+        ax.legend()
         filename = "{}_distribution.png".format(key)
         plt.savefig(filename)
